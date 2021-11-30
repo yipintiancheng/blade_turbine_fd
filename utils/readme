@@ -1,0 +1,8 @@
+一些必要的小组件，
+feaxtra用于提取时域特征值；
+load_dict用于载入模型预训练权重；
+stft用于短时傅里叶变换；
+logger用于记录存档；
+train_utils用于执行训练循环；
+test_utils用于模型测试，其中每次只需更改模型权重路径（其他参数在文件夹名中自动读取）
+dataset实现了一些制作dataset类的必要组件，包括数据增强函数，通过函数compose()顺序执行相应的增强手段，以及Mydataset类；
