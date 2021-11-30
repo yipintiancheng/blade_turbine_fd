@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/vcs.xml
+checkpoint/
+dataset_maker/__pycache__/
+model/__pycache__/
+utils/__pycache__/
+utils/dataset/__pycache__/
