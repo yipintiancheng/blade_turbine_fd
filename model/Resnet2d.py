@@ -255,7 +255,7 @@ def resnet152(pretrained=False, **kwargs):
 
 if __name__ == "__main__":
     import torch
-    model = resnet50()
-    test = torch.nn.Parameter(torch.reshape(torch.rand(255*512 * 2), (2, 1, 255, 512)))
+    model = resnet18()
+    test = torch.nn.Parameter(torch.reshape(torch.rand(255*512 * 6), (2, 3, 255, 512)))
     probs = model(test)
     print(probs.shape, '\n', probs)

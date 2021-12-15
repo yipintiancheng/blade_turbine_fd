@@ -151,48 +151,49 @@ def plot_conf(result, pred, label):
     plt.show()
 
 
-model_path = r'E:\dataset\checkpoint\resnet182d_0-1_demo84stft_1101-193232\34-1.0000-best_model.pth'
-val_set, model = initial(model_path)
-target_layers = model.layer4[-1]  # 用来绘制特征图的层
-# figure_source(val_set)
+if __name__ == "__main__":
+    model_path = r'E:\dataset\checkpoint\resnet182d_0-1_demo84stft_1101-193232\34-1.0000-best_model.pth'
+    val_set, model = initial(model_path)
+    target_layers = model.layer4[-1]  # 用来绘制特征图的层
+    # figure_source(val_set)
 
-# 热力覆盖图
-sample, label = sampler(val_set)  # 在数据集总采样
-target_categorys = [6, 6, 6, 6, 6]
-input_tensor = sample  # 第一通道与第二通道在在截断时与第三通道差距太大，导致归一化后第三通道的值离谱的大，已修复
-model.eval()
-outputs = model(input_tensor)
-grad, val_pred = torch.max(outputs, 1)
-print(val_pred.numpy())
-# with GradCAM(model=model, target_layers=target_layers, use_cuda=args.use_cuda) as cam:
-cam = GradCAM(model=model, target_layer=target_layers)
-grayscale_cam = cam(input_tensor=input_tensor, target_category=target_categorys, eigen_smooth=False)
-show(0, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
-show(1, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
-show(2, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
-show(3, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
-show(4, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
+    # 热力覆盖图
+    sample, label = sampler(val_set)  # 在数据集总采样
+    target_categorys = [6, 6, 6, 6, 6]
+    input_tensor = sample  # 第一通道与第二通道在在截断时与第三通道差距太大，导致归一化后第三通道的值离谱的大，已修复
+    model.eval()
+    outputs = model(input_tensor)
+    grad, val_pred = torch.max(outputs, 1)
+    print(val_pred.numpy())
+    # with GradCAM(model=model, target_layers=target_layers, use_cuda=args.use_cuda) as cam:
+    cam = GradCAM(model=model, target_layer=target_layers)
+    grayscale_cam = cam(input_tensor=input_tensor, target_category=target_categorys, eigen_smooth=False)
+    show(0, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
+    show(1, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
+    show(2, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
+    show(3, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
+    show(4, input_tensor, grayscale_cam, label, val_pred.numpy(), target_categorys)
 
-# # 混淆热力图
-# # 0123456-0123456
-# sample0 = [val_set[20], val_set[120], val_set[340], val_set[560], val_set[780], val_set[1000], val_set[1220]]
-# # 0123456-5123456
-# sample1 = [val_set[105], val_set[120], val_set[340], val_set[560], val_set[780], val_set[1000], val_set[1220]]
-# # 0000000-0000000
-# sample2 = [val_set[5], val_set[10], val_set[20], val_set[40], val_set[80], val_set[90], val_set[100]]
-# # 2222222-6266666
-# sample3 = [val_set[500], val_set[501], val_set[502], val_set[503], val_set[504], val_set[505], val_set[506]]
-# result, pred, label = confuse_cam(sample2, model, target_layers, cam_type='GradCAM')
-# plot_conf(result, pred, label)
+    # # 混淆热力图
+    # # 0123456-0123456
+    # sample0 = [val_set[20], val_set[120], val_set[340], val_set[560], val_set[780], val_set[1000], val_set[1220]]
+    # # 0123456-5123456
+    # sample1 = [val_set[105], val_set[120], val_set[340], val_set[560], val_set[780], val_set[1000], val_set[1220]]
+    # # 0000000-0000000
+    # sample2 = [val_set[5], val_set[10], val_set[20], val_set[40], val_set[80], val_set[90], val_set[100]]
+    # # 2222222-6266666
+    # sample3 = [val_set[500], val_set[501], val_set[502], val_set[503], val_set[504], val_set[505], val_set[506]]
+    # result, pred, label = confuse_cam(sample2, model, target_layers, cam_type='GradCAM')
+    # plot_conf(result, pred, label)
 
-# # GuidedBackprop
-# gb_model = GuidedBackpropReLUModel(model=model, use_cuda=True)
-# gb = gb_model(input_tensor, target_category=4)
-# grayscale_cam = grayscale_cam[0]
-# cam_gb = deprocess_image(cv2.merge([grayscale_cam, grayscale_cam, grayscale_cam]) * gb)
-# gb = deprocess_image(gb)
-# _, ax = plt.subplots(1, 2)
-# ax[0].imshow(cam_gb)
-# ax[0].set_title('target_category=4')
-# ax[1].imshow(gb)
-# plt.show()
+    # # GuidedBackprop
+    # gb_model = GuidedBackpropReLUModel(model=model, use_cuda=True)
+    # gb = gb_model(input_tensor, target_category=4)
+    # grayscale_cam = grayscale_cam[0]
+    # cam_gb = deprocess_image(cv2.merge([grayscale_cam, grayscale_cam, grayscale_cam]) * gb)
+    # gb = deprocess_image(gb)
+    # _, ax = plt.subplots(1, 2)
+    # ax[0].imshow(cam_gb)
+    # ax[0].set_title('target_category=4')
+    # ax[1].imshow(gb)
+    # plt.show()
