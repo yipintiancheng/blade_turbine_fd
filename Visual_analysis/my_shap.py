@@ -56,9 +56,8 @@ def norm(x):
     return torch.tensor(x.swapaxes(1, 3).swapaxes(2, 3)).float()
 
 
-def f1():
+def f1():# 这个只能解释一个一次
     with torch.no_grad():
-        model = model.eval()
 
         # define a masker that is used to mask out partitions of the input image.
         masker = shap.maskers.Image("inpaint_telea", sample[0].shape)
@@ -68,10 +67,10 @@ def f1():
         explainer = shap.Explainer(f, masker, output_names=class_names0)  #
         print(123)
         # here we explain two images using 500 evaluations of the underlying model to estimate the SHAP values
-        shap_values = explainer(sample[[1, 4]], max_evals=100, batch_size=50,
+        shap_values = explainer(np.expand_dims(sample[1], 0), max_evals=100, batch_size=50,
                                 outputs=shap.Explanation.argsort.flip[:3])
         # output with shap values/
-        shap_values.output_names = np.asarray([['1', '1', '1'], ['1', '1', '1']])
+        # shap_values.output_names = np.asarray([['1', '1', '1'], ['1', '1', '1']])
         shap.image_plot(shap_values)
 
 
@@ -112,4 +111,4 @@ model.eval()
 print(type(model.layer4[-1]))
 print(target_layers)
 
-f3()
+f1()
