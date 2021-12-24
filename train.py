@@ -24,7 +24,7 @@ def parse_args():#获得命令行参数
     parser.add_argument('--model_name', type=str,
                         default='resnet182d', help='the name of the model')  # 更改模型就用ecnnfft
     parser.add_argument('--data_name', type=str,
-                        default='demo84stft', help='the name of the datafile')  # demo2这个数据集未被标准化,demo3好像是均值化过demo5cwt
+                        default='demo73stft', help='the name of the datafile')  # demo2这个数据集未被标准化,demo3好像是均值化过demo5cwt
     parser.add_argument('--normlizetype', type=str, choices=['0-1', '1-1', 'mean-std', 'None'],
                         default='0-1', help='data normalization methods')
     parser.add_argument('--augment', type=bool, default=True, help='whether to augment the train data')
@@ -37,7 +37,7 @@ def parse_args():#获得命令行参数
     parser.add_argument('--momentum', type=float,
                         default=0.9, help='the momentum for sgd')
     parser.add_argument('--weight_decay', type=float,
-                        default=4e-5, help='the weight decay')
+                        default=3e-5, help='the weight decay')
     parser.add_argument('--lr_scheduler', type=str, choices=['step', 'exp', 'stepLR', 'fix'],
                         default='fix', help='the learning rate schedule')
     parser.add_argument('--gamma', type=float,
@@ -46,8 +46,8 @@ def parse_args():#获得命令行参数
                         default='20', help='the learning rate decay for step and stepLR')
     
     # save, load and display information
-    parser.add_argument('--max_epoch', type=int, default=50, help='max number of epoch')
-    parser.add_argument('--print_step', type=int, default=20, help='the interval of log training information')
+    parser.add_argument('--max_epoch', type=int, default=20, help='max number of epoch')
+    parser.add_argument('--print_step', type=int, default=10, help='the interval of log training information')
     args = parser.parse_args()
     return args
 

@@ -15,7 +15,7 @@ def parse_args():  # 获得命令行参数
 
     # basic parameters
     parser.add_argument('--model_path', type=str,
-                        default=r'E:\dataset\checkpoint\resnet182d_0-1_demo84stft_1101-193232\34-1.0000-best_model.pth',
+                        default=r'E:\dataset\checkpoint\resnet182d_0-1_demo73stft_1223-151825\17-1.0000-best_model.pth',
                         help='the path of the model')  # 可直接更改这个默认参数，进行测试
     # other parameters
     parser.add_argument('--data_dir', type=str, default="E:\\dataset", help='the directory of the data')
