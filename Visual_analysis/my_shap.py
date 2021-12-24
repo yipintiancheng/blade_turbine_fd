@@ -32,7 +32,7 @@ def sampler(val_set, loader=True):
         val_loader = DataLoader(val_set, batch_size=50, shuffle=True)
         sample, lab = next(iter(val_loader))
         a = (sample.numpy(), lab.numpy())
-        print('form loader: ', a[1])
+        # print('form loader: ', a[1])
     else:
         a = val_set[1300:1320]  # 66666-66666
         # a = val_set[77:82]#00000-06000
@@ -40,7 +40,7 @@ def sampler(val_set, loader=True):
         # a = val_set[850:855]#44444-44444
         # a = val_set[400:405]  # 22222-45552
         # a = val_set[405:410]  # 22222-24224
-        print('not form loader: ', a[1])
+        # print('not form loader: ', a[1])
     a[0].swapaxes(3, 1).swapaxes(2, 1)  # torch.tensor(a[0])
     return np.ascontiguousarray(a[0].swapaxes(3, 1).swapaxes(2, 1)), a[1]
 
@@ -107,6 +107,6 @@ class_names0 = ['0', '1', '2', '3', '4', '5', '6']
 sample, label = sampler(val_set)  # 在数据集总采样
 outputs = model(torch.tensor(sample.swapaxes(1, 3).swapaxes(2, 3)).float())
 grad, val_pred = torch.max(outputs, 1)
-print('*******pred: ', val_pred.numpy())
+# print('*******pred: ', val_pred.numpy())
 
 f3()
